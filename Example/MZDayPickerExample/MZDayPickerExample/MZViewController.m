@@ -34,6 +34,9 @@
     self.dayPicker.selectedDayColor = [UIColor blueColor];
     self.dayPicker.selectedDayNameColor = [UIColor blueColor];
 
+    self.dayPicker.backgroundPickerColor = [UIColor lightGrayColor];
+    self.dayPicker.bottomBorderColor = [UIColor lightGrayColor];
+
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateFormat:@"EE"];
     
