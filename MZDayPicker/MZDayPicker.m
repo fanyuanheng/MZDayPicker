@@ -195,6 +195,7 @@ static BOOL NSRangeContainsRow (NSRange range, NSInteger row) {
             
             if (result == NSOrderedSame) {
                 _currentDate = date;
+                [self setSelectedCell:[self cellForDay:day]];
                 [self setCurrentDay:idx-kDefaultInitialInactiveDays+1 animated:animated];
                 *stop = YES;
             }
@@ -222,14 +223,18 @@ static BOOL NSRangeContainsRow (NSRange range, NSInteger row) {
     
     if ([self.delegate respondsToSelector:@selector(dayPicker:didSelectDay:)]) {
         [self.delegate dayPicker:self didSelectDay:self.tableDaysData[currentIndex.row]];
-        if (_currentCell) {
-            ((MZDayPickerCell *)_currentCell).dayLabel.textColor = _activeDayColor;
-            ((MZDayPickerCell *)_currentCell).dayNameLabel.textColor = _activeDayNameColor;
-        }
-        cell.dayLabel.textColor = _selectedDayColor;
-        cell.dayNameLabel.textColor = _selectedDayNameColor;
-        _currentCell = cell;
+        [self setSelectedCell:cell];
     }
+}
+
+- (void)setSelectedCell:(MZDayPickerCell *)cell {
+    if (_currentCell) {
+            ((MZDayPickerCell *) _currentCell).dayLabel.textColor = _activeDayColor;
+            ((MZDayPickerCell *) _currentCell).dayNameLabel.textColor = _activeDayNameColor;
+        }
+    cell.dayLabel.textColor = _selectedDayColor;
+    cell.dayNameLabel.textColor = _selectedDayNameColor;
+    _currentCell = cell;
 }
 
 - (MZDayPickerCell *)cellForDay:(MZDay *)day
