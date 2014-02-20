@@ -50,8 +50,10 @@ NSInteger const kDefaultFinalInactiveDays = 8;
 #define kDefaultShadowCellOffset CGSizeMake(0.0, 0.0)
 #define kDefaultShadowCellRadius 5
 
-#define kDefaultColorDay [UIColor blackColor]
+#define kDefaultColorDay [UIColor darkGrayColor]
+#define kDefaultColorSelectedDay [UIColor whiteColor]
 #define kDefaultColorDayName [UIColor colorWithRed:0.55f green:0.04f blue:0.04f alpha:1.00f]
+#define kDefaultColorSelectedDayName [UIColor whiteColor]
 #define kDefaultColorBottomBorder [UIColor colorWithRed:0.22f green:0.57f blue:0.80f alpha:1.00f]
 
 
@@ -79,6 +81,8 @@ static BOOL NSRangeContainsRow (NSRange range, NSInteger row) {
 @property (nonatomic, strong) UITableView* tableView;
 
 @property (nonatomic, strong) NSArray *tableDaysData;
+
+@property (nonatomic, assign) id currentCell;
 @end
 
 
@@ -209,17 +213,23 @@ static BOOL NSRangeContainsRow (NSRange range, NSInteger row) {
     _currentIndex = currentIndex;
     
     //  In these situations you need to calculate the contentOffset manually for those cells.
-    
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:currentIndex];
+
+    MZDayPickerCell *cell = (MZDayPickerCell *)[self.tableView cellForRowAtIndexPath:currentIndex];
     
     CGFloat contentOffset = cell.center.y - (self.tableView.frame.size.width/2);
     
     [self.tableView setContentOffset:CGPointMake(self.tableView.contentOffset.x, contentOffset) animated:YES];
     
-    if ([self.delegate respondsToSelector:@selector(dayPicker:didSelectDay:)])
+    if ([self.delegate respondsToSelector:@selector(dayPicker:didSelectDay:)]) {
         [self.delegate dayPicker:self didSelectDay:self.tableDaysData[currentIndex.row]];
-    
-    
+        if (_currentCell) {
+            ((MZDayPickerCell *)_currentCell).dayLabel.textColor = _activeDayColor;
+            ((MZDayPickerCell *)_currentCell).dayNameLabel.textColor = _activeDayNameColor;
+        }
+        cell.dayLabel.textColor = _selectedDayColor;
+        cell.dayNameLabel.textColor = _selectedDayNameColor;
+        _currentCell = cell;
+    }
 }
 
 - (MZDayPickerCell *)cellForDay:(MZDay *)day
@@ -251,6 +261,8 @@ static BOOL NSRangeContainsRow (NSRange range, NSInteger row) {
         _inactiveDayColor = kDefaultColorInactiveDay;
         _backgroundPickerColor = kDefaultColorBackground;
         _bottomBorderColor = kDefaultColorBottomBorder;
+        _selectedDayColor = kDefaultColorSelectedDay;
+        _selectedDayNameColor = kDefaultColorSelectedDayName;
         _dayLabelZoomScale = kDefaultDayLabelMaxZoomValue;
         _dayLabelFontSize = kDefaultDayLabelFontSize;
         _dayNameLabelFontSize = kDefaultDayNameLabelFontSize;
@@ -496,7 +508,7 @@ static BOOL NSRangeContainsRow (NSRange range, NSInteger row) {
                 cell.containerView.layer.shadowOpacity = 0;
                 
             }
-            
+
         }
     }
     

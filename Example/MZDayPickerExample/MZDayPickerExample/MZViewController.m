@@ -30,7 +30,10 @@
     
     self.dayPicker.dayNameLabelFontSize = 12.0f;
     self.dayPicker.dayLabelFontSize = 18.0f;
-    
+
+    self.dayPicker.selectedDayColor = [UIColor blueColor];
+    self.dayPicker.selectedDayNameColor = [UIColor blueColor];
+
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateFormat:@"EE"];
     
