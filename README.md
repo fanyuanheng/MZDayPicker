@@ -1,10 +1,13 @@
 MZDayPicker
 ===========
 
-An iOS day picker to allow users to select date
+[![](https://raw.github.com/fanyuanheng/MZDayPicker/master/Screens/screen1.png)](https://raw.github.com/fanyuanheng/MZDayPicker/master/Screens/screen1.png)
 
-[![](https://raw.github.com/m1entus/MZDayPicker/master/Screens/screen1.png)](https://raw.github.com/m1entus/MZDayPicker/master/Screens/screen1@2x.png)
-[![](https://raw.github.com/m1entus/MZDayPicker/master/Screens/animation.gif)](https://raw.github.com/m1entus/MZDayPicker/master/Screens/animation.gif)
+
+## Some Extras
+* Day indicator support
+* Selected day customization
+* Enable setting current selected cell
 
 ## How To Use
 
@@ -29,6 +32,11 @@ You can setup picker using current month:
     self.dayPicker.dayNameLabelFontSize = 7.0f;
     self.dayPicker.dayLabelFontSize = 15.0f;
     [self.dayPicker setActiveDaysFrom:1 toDay:30];
+    
+    self.dayPicker.selectedDayColor = [UIColor blueColor];
+    self.dayPicker.selectedDayNameColor = [UIColor blueColor];
+    
+    self.dayPicker.indicatorColor = [UIColor orangeColor];
 
     [self.dayPicker setCurrentDay:15 animated:NO];
 }
@@ -65,6 +73,14 @@ Implement the optional delegate method to be notified when a new day item is sel
     [self.tableView reloadData];
 }
 
+- (BOOL)hasIndicatorForCellInDay:(MZDay *)day
+{
+    if (arc4random_uniform(6) < 4) {
+        return NO;
+    }
+    return YES;
+}
+
 ```
 
 ## Delegates
@@ -85,6 +101,7 @@ Implement the optional delegate method to be notified when a new day item is sel
 
 - (void)dayPicker:(MZDayPicker *)dayPicker willSelectDay:(MZDay *)day;
 - (void)dayPicker:(MZDayPicker *)dayPicker didSelectDay:(MZDay *)day;
+- (BOOL)hasIndicatorForCellInDay:(MZDay *)day
 
 @end
 ```
@@ -136,5 +153,5 @@ MZDayPicker uses ARC.
 
 ## Contact
 
-[Michal Zaborowski](http://github.com/m1entus) 
+[Yuan Heng Fan](http://github.com/fanyuanheng) 
 
