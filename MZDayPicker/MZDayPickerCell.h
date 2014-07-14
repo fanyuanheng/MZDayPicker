@@ -30,6 +30,7 @@
 @property (nonatomic, readonly) UIView *containerView;
 @property (nonatomic, readonly) UILabel *dayLabel;
 @property (nonatomic, readonly) UILabel *dayNameLabel;
+@property (nonatomic, readonly) UIView *indicator;
 
 - (void)setBottomBorderSlideHeight:(CGFloat)height;
 - (void)setBottomBorderColor:(UIColor *)color;

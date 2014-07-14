@@ -33,6 +33,7 @@
 @property (nonatomic, strong) UIView *containerView;
 @property (nonatomic, strong) UILabel *dayLabel;
 @property (nonatomic, strong) UILabel *dayNameLabel;
+@property (nonatomic, strong) UIView *indicator;
 @end
 
 @implementation MZDayPickerCell
@@ -120,8 +121,12 @@
     self.dayNameLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:self.dayNameLabel.font.pointSize];
     self.dayNameLabel.backgroundColor = [UIColor clearColor];
     
+    self.indicator = [UIView new];
+    self.indicator.backgroundColor = [UIColor redColor];
+    
     [containingView addSubview: self.dayLabel];
     [containingView addSubview: self.dayNameLabel];
+    [containingView addSubview: self.indicator];
     
     self.containerView = containingView;
     

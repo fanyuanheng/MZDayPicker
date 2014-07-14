@@ -641,6 +641,9 @@ static BOOL NSRangeContainsRow (NSRange range, NSInteger row) {
         cell.dayNameLabel.textColor = self.inactiveDayColor;
     }
     
+    cell.indicator.frame = CGRectMake(cell.containerView.frame.size.width - 10, cell.containerView.frame.size.height - 10, 10, 10);
+//    cell.indicator.center = CGPointMake(cell.containerView.center.x, cell.indicator.center.y);
+    
     return cell;
     
 }
