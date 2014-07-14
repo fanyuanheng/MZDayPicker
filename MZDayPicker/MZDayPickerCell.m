@@ -122,7 +122,7 @@
     self.dayNameLabel.backgroundColor = [UIColor clearColor];
     
     self.indicator = [UIView new];
-    self.indicator.backgroundColor = [UIColor redColor];
+    self.indicator.backgroundColor = [UIColor clearColor];
     
     [containingView addSubview: self.dayLabel];
     [containingView addSubview: self.dayNameLabel];

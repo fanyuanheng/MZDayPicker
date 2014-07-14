@@ -56,6 +56,8 @@ NSInteger const kDefaultFinalInactiveDays = 8;
 #define kDefaultColorSelectedDayName [UIColor whiteColor]
 #define kDefaultColorBottomBorder [UIColor colorWithRed:0.22f green:0.57f blue:0.80f alpha:1.00f]
 
+#define kDefaultColorIndicator [UIColor redColor]
+
 
 static BOOL NSRangeContainsRow (NSRange range, NSInteger row) {
     
@@ -271,6 +273,7 @@ static BOOL NSRangeContainsRow (NSRange range, NSInteger row) {
         _dayLabelZoomScale = kDefaultDayLabelMaxZoomValue;
         _dayLabelFontSize = kDefaultDayLabelFontSize;
         _dayNameLabelFontSize = kDefaultDayNameLabelFontSize;
+        _indicatorColor = kDefaultColorIndicator;
         
         [self setActiveDaysFrom:1 toDay:[NSDate dateFromDay:1 month:self.month year:self.year].numberOfDaysInMonth-1];
         
@@ -641,8 +644,10 @@ static BOOL NSRangeContainsRow (NSRange range, NSInteger row) {
         cell.dayNameLabel.textColor = self.inactiveDayColor;
     }
     
-    cell.indicator.frame = CGRectMake(cell.containerView.frame.size.width - 10, cell.containerView.frame.size.height - 10, 10, 10);
-//    cell.indicator.center = CGPointMake(cell.containerView.center.x, cell.indicator.center.y);
+    if ([self.delegate respondsToSelector:@selector(hasIndicatorForCellInDay:)] && [self.delegate hasIndicatorForCellInDay:day]) {
+        cell.indicator.frame = CGRectMake(cell.containerView.frame.size.width - 10, cell.containerView.frame.size.height - 10, 10, 10);
+        cell.indicator.backgroundColor = self.indicatorColor;
+    }
     
     return cell;
     

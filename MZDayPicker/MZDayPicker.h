@@ -44,6 +44,7 @@
 
 - (void)dayPicker:(MZDayPicker *)dayPicker willSelectDay:(MZDay *)day;
 - (void)dayPicker:(MZDayPicker *)dayPicker didSelectDay:(MZDay *)day;
+- (BOOL)hasIndicatorForCellInDay:(MZDay *)day;
 
 @end
 
@@ -67,6 +68,11 @@
  * Property for cell footer color (optional)
  */
 @property (nonatomic, strong) UIColor *bottomBorderColor;
+
+/*
+ * Indicator color (optional)
+ */
+@property (nonatomic, strong) UIColor *indicatorColor;
 
 /* Day number and name font size (optional) */
 @property (nonatomic, assign) CGFloat dayLabelFontSize;

@@ -36,6 +36,8 @@
 
     self.dayPicker.backgroundPickerColor = [UIColor lightGrayColor];
     self.dayPicker.bottomBorderColor = [UIColor lightGrayColor];
+    
+    self.dayPicker.indicatorColor = [UIColor orangeColor];
 
     self.dateFormatter = [[NSDateFormatter alloc] init];
     [self.dateFormatter setDateFormat:@"EE"];
@@ -75,6 +77,14 @@
 - (void)dayPicker:(MZDayPicker *)dayPicker willSelectDay:(MZDay *)day
 {
     NSLog(@"Will select day %@",day.day);
+}
+
+- (BOOL)hasIndicatorForCellInDay:(MZDay *)day
+{
+    if (arc4random_uniform(6) < 4) {
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - UITableViewDataSource
